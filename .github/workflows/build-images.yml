@@ -3,14 +3,8 @@ name: Build Images
 on:
   push:
     branches:
-      - master
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: Environment to build images for
-        required: true
-        type: environment
-        default: development
+      - main
+  workflow_dispatch: {}
 
 jobs:
   build-images:
