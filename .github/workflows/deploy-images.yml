@@ -1,16 +1,13 @@
 name: Deploy Images
 
 on:
-  workflow_run:
-    workflows: ["Build Images"]
-    branches: [main]
-    types: 
-      - completed
   workflow_dispatch: {}
 
 jobs:
+  build-images:
+    uses: ./.github/workflows/build-images.yml
   deploy-images:
+    needs: build-images
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo 'The Build Images workflow passed, we can deploy now!'
+      - run: echo 'Deploying images!'
