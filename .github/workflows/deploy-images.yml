@@ -5,9 +5,20 @@ on:
 
 jobs:
   build-images:
-    uses: ./.github/workflows/build-images.yml
-  deploy-images:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Done building images!'
+
+  deploy-images-to-staging:
+    environment: staging
     needs: build-images
     runs-on: ubuntu-latest
     steps:
-      - run: echo 'Deploying images!'
+      - run: echo 'Deployed images to staging!'
+
+  deploy-images-to-production:
+    environment: production
+    needs: deploy-images-to-staging
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Deployed images to production!'
